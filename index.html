@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- <link rel="stylesheet" type="text/css" href="assets/css/style.css"> -->
+    <style>
+        html, header {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f9fbfd;
+        }
+        
+        .center-containers {
+            display: flex;
+            justify-content: center;
+        }
+
+        .center-text {
+            text-align: center;
+        }
+
+        body {
+            margin: 12.5% 25% auto 25%;
+            padding: 0;
+            background-color: white;            
+        }
+
+        #content_container {
+            padding: 2%;
+            margin: 0;
+            border: 1px solid grey;
+            border-radius: 5px;
+            box-shadow: 0 0 2px grey;
+        }
+
+        #buttons_container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #password {
+            box-sizing: border-box;
+            margin: 0;
+            width: 100%;
+            border: 1px dashed #c0c7cf;
+            border-radius: 5px;
+
+            resize: none;
+
+            text-align: center;
+        }
+
+        #generate {
+            font-size: 1.33em;
+            justify-content: left;
+            color: white;
+            background-color: #af0808;
+            padding: 0.5em 1.0em 0.5em 1.0em;
+            border: 1px solid #af0808;
+            border-radius: 1em;
+        }
+
+        #copy {
+            font-size: 1.33em;
+            justify-content: right;
+            color: white;
+            background-color: #c0c7cf;
+            padding: 0.5em 1.0em 0.5em 1.0em;
+            border: 1px solid #c0c7cf;
+            border-radius: 1em;
+        }
+    </style>
+    <title class="center-text">Password Generator</title>
+  </head>
+  <body>
+    <header class="center-containers">
+      <h1 class="center-text">Password Generator</h1>
+    </header>
+    <div id="content_container">
+        <h2>Generate a Password</h2>
+        <hr>
+        <textarea readonly id="password" rows=8 placeholder="Generated Password" aria-label="Generated Password"></textarea>
+        <hr>
+        <div id="buttons_container">
+            <button id="generate">Generate Password</button>
+            <button id="copy">Copy to Clipboard</button>
+        </div>
+    </div>
+  </body>
+  <script>
+        var numbers = "0123456789";
+        var lowercase = "abcdefghijklmnopqrstuvwxyz";
+        var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        var special = "-";
+
+        /**
+         * Swaps two elements of an array
+         *
+         * @param {array} array of elements to act on
+         * @param {number} index of first element for swapping
+         * @param {number} index of second element for swapping
+         */
+
+        function swap(array,index_one,index_two) {
+            if (index_one < array.length && index_two < array.length) {
+                /* one line solution but looks like it may require more work under the hood unless the interpreter is clever
+                https://medium.com/better-programming/how-swap-two-values-without-temporary-variables-using-javascript-8bb28f96b5f6
+                
+                array[index_one] = [ array[index_two], array[index_two] = array[index_one] ][0];
+                */
+                var temp = array[index_one];
+                array[index_one] = array[index_two];
+                array[index_two] = temp;
+            }
+        }
+
+        /**
+         * Generates a password
+         *
+         * Each class will contribute at least one character and all remaining
+         * characters will be selected randomly from the complete set of all
+         * character classes.
+         *
+         * @param {number} numChars number of characters in the password
+         * @param {array of strings?} array of character class strings
+         */
+        function generatePassword(numChars, charClasses) {
+            var password = [];
+            var all_characters = "";
+
+            /* append all classes together */
+            for (a of charClasses) {
+                all_characters += a;
+            }
+
+            while(password.length < numChars) {
+                if (password.length < charClasses.length) {
+                    var set_index = Math.floor(Math.random() * charClasses[password.length].length);
+                    password.push(charClasses[password.length][set_index]);
+                }
+                else {
+                    var index = Math.floor(Math.random() * all_characters.length);
+                    password.push(all_characters[index]);
+                }
+            }
+
+            for (var i = 0; i < password.length - 1; ++i) {
+                j = Math.floor(Math.random() * (password.length-i)) + i;
+                swap(password,i,j);
+            }
+            
+            return password.join("");
+        }
+
+        document.getElementById("generate").onclick = function generate() {
+            var numChars;
+            do {
+                numChars = parseInt(prompt("Enter length: ",8));
+                if (numChars >= 8 && numChars <= 128) {
+                    break;
+                }
+                else {
+                    alert("Length must be between 8 and 128 characters!");
+                }
+            }
+            while(true);
+
+            var charClasses = [];
+            do {
+                if(confirm("Use number character class?")) {
+                    charClasses.push(numbers);
+                }
+                if(confirm("Use lower-case character class?")) {
+                    charClasses.push(lowercase);
+                }
+                if (confirm("Use upper-case character class?")) {
+                    charClasses.push(uppercase);
+                }
+                if (confirm("Use special character class?")) {
+                    charClasses.push(special);
+                }
+                if (charClasses.length != 0) {
+                    break;
+                }
+                else {
+                    alert("You must choose at least one class of characters for the password!");
+                }
+            } while(true);
+
+            password = generatePassword(numChars, charClasses);
+
+            document.getElementById("password").value = password;
+        }
+
+        document.getElementById("copy").onclick = function copy() {
+            /* https://www.w3schools.com/howto/howto_js_copy_clipboard.asp */
+            var textAreaElement = document.getElementById("password");
+            /* select contents of the text field */
+            textAreaElement.select();
+            /* w3schools example claims that the selection range is required for mobile devices */
+            textAreaElement.setSelectionRange(0,99999);
+            /* perform the copy */
+            document.execCommand("copy");
+        }
+    </script>
+
+</html>
