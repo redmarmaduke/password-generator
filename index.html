@@ -92,7 +92,7 @@
         var numbers = "0123456789";
         var lowercase = "abcdefghijklmnopqrstuvwxyz";
         var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        var special = "-";
+        var special = " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
 
         /**
          * Swaps two elements of an array
@@ -128,6 +128,10 @@
         function generatePassword(numChars, charClasses) {
             var password = [];
             var all_characters = "";
+
+            for (var i = 0; i < special.length; ++i) {
+                console.log(special[i]);
+            }
 
             /* append all classes together */
             for (a of charClasses) {
@@ -198,7 +202,10 @@
             var textAreaElement = document.getElementById("password");
             /* select contents of the text field */
             textAreaElement.select();
-            /* w3schools example claims that the selection range is required for mobile devices */
+            /* 
+             * w3schools example claims that the selection range is required for 
+             * correct behavior on mobile devices
+             */
             textAreaElement.setSelectionRange(0,99999);
             /* perform the copy */
             document.execCommand("copy");
