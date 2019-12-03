@@ -97,7 +97,7 @@ function generatePassword(requiredPasswordLength, charClasses) {
     return password.join("");
 }
 
-document.getElementById("generate-btn").onclick = function generate() {
+document.getElementById("generate_btn").onclick = function generate() {
     var numChars;
     do {
         numChars = parseInt(prompt("Enter length: ",8));
@@ -135,16 +135,16 @@ document.getElementById("generate-btn").onclick = function generate() {
     password = generatePassword(numChars, charClasses);
 
     /** document.getElementById("password").textAreaElement. */
-    var passwordElement = document.getElementById("password-textarea");
+    var passwordElement = document.getElementById("password_textarea");
     passwordElement.value = password;
     passwordElement.style.textAlign = "left"; 
     /* allow break at any character */
     passwordElement.style.wordBreak = "break-all";
 }
 
-document.getElementById("copy-btn").onclick = function copy() {
+document.getElementById("copy_btn").onclick = function copy() {
     /* https://www.w3schools.com/howto/howto_js_copy_clipboard.asp */
-    var textAreaElement = document.getElementById("password-textarea");
+    var textAreaElement = document.getElementById("password_textarea");
     /* select contents of the text field */
     textAreaElement.select();
     /* 

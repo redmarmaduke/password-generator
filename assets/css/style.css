@@ -47,7 +47,7 @@ body {
     justify-content: space-between;
 }
 
-#password-textarea {
+#password_textarea {
     font-family: "Lucida Console", Monaco, monospace;
     box-sizing: border-box;
     margin: 0;
@@ -61,7 +61,7 @@ body {
     outline: none;
 }
 
-#generate-btn {
+#generate_btn {
     font-size: 1.33em;
     justify-content: left;
     color: white;
@@ -72,7 +72,7 @@ body {
     outline: none;
 }
 
-#copy-btn {
+#copy_btn {
     font-size: 1.33em;
     justify-content: right;
     color: white;
