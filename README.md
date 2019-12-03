@@ -99,10 +99,12 @@ look like the reference image for the project.
             return password.join("");
         }
 
-## Image examples of the above code snippet in action:
+## Image examples of the web page:
 
-![DESC1](IMAGE1.PNG)
-![DESC2](IMAGE2.PNG)
+![Wide Page View #1](assets/img/wide-pre-password-gen.PNG)
+![Wide Page View #2](assets/img/wide-post-password-gen.PNG)
+![Narrow Page View #1](assets/img/narrow-pre-password-gen.PNG)
+![Narrow Page View #2](assets/img/narrow-post-password-gen.PNG)
 
 ## Getting Started
 
