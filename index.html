@@ -3,14 +3,31 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <!-- <link rel="stylesheet" type="text/css" href="assets/css/style.css"> -->
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />    
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <style>
+        
         html, header {
             font-family: Arial, Helvetica, sans-serif;
             background-color: #f9fbfd;
+            line-height: normal;
         }
+                
+        h1, h2 {
+            font-weight: bold;
+            display: block;            
+        } 
         
+        h1 {
+            font-size: 2em;
+            margin: 0.5em .67em 0.5em .67em;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            margin: 0.75em .83em 0.75em .83em;
+        } 
+
         .center-containers {
             display: flex;
             justify-content: center;
@@ -34,12 +51,12 @@
             box-shadow: 0 0 2px grey;
         }
 
-        #buttons_container {
+        #btn_container {
             display: flex;
             justify-content: space-between;
         }
 
-        #password {
+        #password-textarea {
             box-sizing: border-box;
             margin: 0;
             width: 100%;
@@ -49,12 +66,9 @@
             resize: none;
 
             text-align: center;
-
-            /* allow break at any character */
-            word-break: break-all;
         }
 
-        #generate {
+        #generate-btn {
             font-size: 1.33em;
             justify-content: left;
             color: white;
@@ -65,7 +79,7 @@
             outline: none;
         }
 
-        #copy {
+        #copy-btn {
             font-size: 1.33em;
             justify-content: right;
             color: white;
@@ -78,10 +92,10 @@
 
         @media only screen and (max-width: 575px) {
             html {
-                min-width: auto;
+                min-width: 329px;
             }
 
-            #buttons_container {
+            #btn_container {
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -93,6 +107,7 @@
         }
 
     </style>
+    
     <title class="center-text">Password Generator</title>
   </head>
   <body>
@@ -102,11 +117,11 @@
     <div id="content_container">
         <h2 id="password_header">Generate a Password</h2>
         <hr>
-        <textarea readonly id="password" rows=5 placeholder="Generated Password" aria-label="Generated Password"></textarea>
+        <textarea readonly id="password-textarea" rows=5 placeholder="Generated Password" aria-label="Generated Password"></textarea>
         <hr>
-        <div id="buttons_container">
-            <button id="generate">Generate Password</button>
-            <button id="copy">Copy to Clipboard</button>
+        <div id="btn_container">
+            <button id="generate-btn">Generate Password</button>
+            <button id="copy-btn">Copy to Clipboard</button>
         </div>
     </div>
   </body>
@@ -220,6 +235,8 @@
             var passwordElement = document.getElementById("password");
             passwordElement.value = password;
             passwordElement.style.textAlign = "left"; 
+            /* allow break at any character */
+            passwordElement.style.wordBreak = "break-all";
         }
 
         document.getElementById("copy").onclick = function copy() {
