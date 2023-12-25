@@ -65,20 +65,26 @@ body {
     font-size: 1.33em;
     justify-content: left;
     color: white;
-    background-color: #af0808;
     padding: 0.5em 1.0em 0.5em 1.0em;
-    border: 1px solid #af0808;
     border-radius: 1em;
     outline: none;
+}
+
+.button_enabled {
+    background-color: #af0808 !important;
+    border: 1px solid #af0808 !important;
+}
+
+.button_disabled {
+    background-color: #c0c7cf !important;
+    border: 1px solid #c0c7cf !important;
 }
 
 #copy_btn {
     font-size: 1.33em;
     justify-content: right;
     color: white;
-    background-color: #c0c7cf;
     padding: 0.5em 1.0em 0.5em 1.0em;
-    border: 1px solid #c0c7cf;
     border-radius: 1em;
     outline: none;
 }
