@@ -81,8 +81,13 @@ function generatePassword(requiredPasswordLength, charClasses) {
             /* 
              * make sure each required character class gets at least a single instance 
              */
+<<<<<<< HEAD
             const setIndex = Math.floor(Math.random() * charClasses[password.length].length);
             password.push(charClasses[password.length][setIndex]);
+=======
+            const set_index = Math.floor(Math.random() * charClasses[password.length].length);
+            password.push(charClasses[password.length][set_index]);
+>>>>>>> 2d2698cd6174c005300b7cc4f12da246440ca235
         }
         else {
             /* 
