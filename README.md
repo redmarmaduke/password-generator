@@ -5,99 +5,107 @@ look like the reference image for the project.
 
 ## Code responsible for the random number generation:
 
-        /**
-         * Swaps two elements of an array
-         *
-         * @param {array} array of elements to act on
-         * @param {number} index of first element for swapping
-         * @param {number} index of second element for swapping
-         */
+```javascript
+/**
+* Swaps two elements of an array
+*
+* @param {array} array of elements to act on
+* @param {number} index of first element for swapping
+* @param {number} index of second element for swapping
+*/
 
-        function swap(array,index_one,index_two) {
-            if (index_one < array.length && index_two < array.length) {
-                /* one line solution but looks like it may require more work under the hood unless the interpreter is clever
-                https://medium.com/better-programming/how-swap-two-values-without-temporary-variables-using-javascript-8bb28f96b5f6
-                
-                array[index_one] = [ array[index_two], array[index_two] = array[index_one] ][0];
-                */
-                var temp = array[index_one];
-                array[index_one] = array[index_two];
-                array[index_two] = temp;
-            }
-        }
-
-        /**
-         * Generates a random character from all character classes submitted
-         *
-         * @param {string[]} charClasses array of character class strings
-         * @return {string} random character
-         */
-        function getRandomCharacterFromAllSets(charClasses) {
-
-            /* find number of all characters  */
-            var num_characters = 0;
-            for (charClass of charClasses) {
-                num_characters += charClass.length;
-            }
-
-            var index = Math.floor(Math.random() * num_characters);
-
-            for (charClass of charClasses) {                
-                if (index >= charClass.length) {
-                    /* adjust to find the actual index into the charClass */
-                    index -= charClass.length;
-                }
-                else {
-                    return charClass[index];
-                }
-            }
-            return undefined;
-        }
-
-        /**
-         * Generates a password
-         *
-         * Each class will contribute at least one character and all remaining
-         * characters will be selected randomly from the complete set of all
-         * character classes.
-         *
-         * @param {number} numChars number of characters in the password
-         * @param {string[]} charClasses array of character class strings
-         */
-        function generatePassword(requiredPasswordLength, charClasses) {
-            var password = [];
-            var all_characters = "";
+function swap(array,indexOne,indexTwo) {
+    if (
+        (indexOne >= 0 && indexOne < array.length) && 
+        (indexTwo >= 0 && indexTwo < array.length)
+    ) {
+        /*  one line solution but looks like it may require more work under the hood
+            unless the interpreter is clever
+            https://medium.com/better-programming/how-swap-two-values-without-temporary-variables-using-javascript-8bb28f96b5f6
             
-            /* must have enough characters to use at least one of each required character class */
-            if (requiredPasswordLength < charClasses.length) {
-                throw new Error("Invalid Argument: required password length is too short!"); 
-            }
+            array[indexOne] = [ array[indexTwo], array[indexTwo] = array[indexOne] ][0];
+        */
+        const temp = array[indexOne];
+        array[indexOne] = array[indexTwo];
+        array[indexTwo] = temp;
+    }
+    else {
+        throw new Error('Invalid index used in swap()');
+    }
+}
 
-            while(password.length < requiredPasswordLength) {
-                if (password.length < charClasses.length) {
-                    /* 
-                     * make sure each required character class gets at least a single instance 
-                     */
-                    var set_index = Math.floor(Math.random() * charClasses[password.length].length);
-                    password.push(charClasses[password.length][set_index]);
-                }
-                else {
-                    /* 
-                     * Remaining characters should be selected with equal probability from
-                     * all characters available.
-                     */
-                    password.push(getRandomCharacterFromAllSets(charClasses));
-                }
-            }
+/**
+* Generates a random character from all character classes submitted
+*
+* @param {string[]} charClasses array of character class strings
+* @return {string} random character
+*/
+function getRandomCharacterFromAllSets(charClasses) {
 
-            /* randomize array */
-            for (var i = 0; i < password.length - 1; ++i) {
-                j = Math.floor(Math.random() * (password.length-i)) + i;
-                swap(password,i,j);
-            }
-            
-            return password.join("");
+    /* find number of all characters  */
+    let numCharacters = 0;
+    for (charClass of charClasses) {
+        numCharacters += charClass.length;
+    }
+
+    let index = Math.floor(Math.random() * numCharacters);
+
+    for (charClass of charClasses) {                
+        if (index >= charClass.length) {
+            /* adjust to find the actual index into the charClass */
+            index -= charClass.length;
         }
+        else {
+            return charClass[index];
+        }
+    }
+    return undefined;
+}
+
+/**
+* Generates a password
+*
+* Each class will contribute at least one character and all remaining
+* characters will be selected randomly from the complete set of all
+* character classes.
+*
+* @param {number} numChars number of characters in the password
+* @param {string[]} charClasses array of character class strings
+*/
+function generatePassword(requiredPasswordLength, charClasses) {
+    const password = [];
+    
+    /* must have enough characters to use at least one of each required character class */
+    if (requiredPasswordLength < charClasses.length) {
+        throw new Error("Invalid Argument: required password length is too short!"); 
+    }
+
+    while(password.length < requiredPasswordLength) {
+        if (password.length < charClasses.length) {
+            /* 
+            * make sure each required character class gets at least a single instance 
+            */
+            const setIndex = Math.floor(Math.random() * charClasses[password.length].length);
+            password.push(charClasses[password.length][setIndex]);
+        }
+        else {
+            /* 
+            * Remaining characters should be selected with equal probability from
+            * all characters available.
+            */
+            password.push(getRandomCharacterFromAllSets(charClasses));
+        }
+    }
+
+    /* randomize array */
+    for (let i = 0; i < password.length - 1; ++i) {
+        j = Math.floor(Math.random() * (password.length-i)) + i;
+        swap(password,i,j);
+    }
+    
+    return password.join("");
+}
+```
 
 ## Image examples of the web page:
 
