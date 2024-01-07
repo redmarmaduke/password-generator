@@ -3,6 +3,9 @@ const lowercase = "abcdefghijklmnopqrstuvwxyz";
 const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const special = " !\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~";
 
+const generateButton = document.getElementById("generate_btn");
+const copyButton = document.getElementById("copy_btn");
+
 /**
  * Swaps two elements of an array
  *
@@ -102,7 +105,7 @@ function generatePassword(requiredPasswordLength, charClasses) {
     return password.join("");
 }
 
-document.getElementById("generate_btn").onclick = function generate() {
+generateButton.onclick = function generate() {
     let numChars = 0;
     do {
         numChars = parseInt(prompt("Enter length: ",8));
@@ -145,12 +148,12 @@ document.getElementById("generate_btn").onclick = function generate() {
     passwordElement.style.textAlign = "left"; 
     /* allow break at any character */
     passwordElement.style.wordBreak = "break-all";
+    
     /* enable copy and paste */
-
-    console.log(document.getElementById("copy_btn").classList.replace("button_disabled", "button_enabled"));
+    copyButton.classList.remove("button_disabled");
 }
 
-document.getElementById("copy_btn").onclick = function copy() {
+copyButton.onclick = function copy() {
     /* https://www.w3schools.com/howto/howto_js_copy_clipboard.asp */
     const textAreaElement = document.getElementById("password_textarea");
     /* select contents of the text field */

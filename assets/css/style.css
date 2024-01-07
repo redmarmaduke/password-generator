@@ -61,7 +61,10 @@ body {
     outline: none;
 }
 
-#generate_btn {
+#generate_btn, #copy_btn {
+    background-color: #af0808;
+    border: 1px solid #af0808;
+
     font-size: 1.33em;
     justify-content: left;
     color: white;
@@ -70,23 +73,9 @@ body {
     outline: none;
 }
 
-.button_enabled {
-    background-color: #af0808 !important;
-    border: 1px solid #af0808 !important;
-}
-
 .button_disabled {
     background-color: #c0c7cf !important;
     border: 1px solid #c0c7cf !important;
-}
-
-#copy_btn {
-    font-size: 1.33em;
-    justify-content: right;
-    color: white;
-    padding: 0.5em 1.0em 0.5em 1.0em;
-    border-radius: 1em;
-    outline: none;
 }
 
 @media only screen and (max-width: 575px) {
